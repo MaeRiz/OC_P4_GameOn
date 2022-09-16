@@ -8,10 +8,12 @@ function editNav() {
 }
 
 // DOM Elements
-const modalbg = document.querySelector(".bground");
+const modalbg = document.querySelector("#modalpage");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-const modalForm = document.querySelector("#modal-form")
+const modalForm = document.querySelector("#modal-form");
+const popup = document.querySelector("#popup");
+
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -19,11 +21,29 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  document.body.classList.add('overflow-control');
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
+}
+
+// launch popup form
+function launchPopUp(text) {
+  document.querySelector('#popup-text').innerHTML = text;
+  popup.style.display = "block";
+  document.body.classList.add('overflow-control');
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
 }
 
 // Close modal
 function closeModal() {
   modalbg.style.display = "none";
+  document.body.classList.remove('overflow-control');
+}
+
+// Close popup
+function closePopUp() {
+  popup.style.display = "none";
+  document.body.classList.remove('overflow-control');
+
 }
 
 // Check form
@@ -106,6 +126,8 @@ const checkField = function(type, data) {
 
 };
 
+// Check radio field of form
+
 const checkRadio = function(){
   const radioButtons = document.querySelectorAll('input[name="location"]');
   let small = document.querySelector("#radio-location");
@@ -119,6 +141,8 @@ const checkRadio = function(){
     }
   }
 }
+
+//check checkbox field of form
 
 const checkCheckBox = function() {
   const checkBoxBtn = document.querySelector('input[id="checkbox1"]');
@@ -134,9 +158,24 @@ const checkCheckBox = function() {
 
 };
 
+
+// Check fields, send popup, submit 
 modalForm.addEventListener('submit', function(event){
   event.preventDefault();
-  if (checkField('name', modalForm.first) && checkField('name', modalForm.last) && checkField('email', modalForm.email) && checkField('date', modalForm.birthdate) && checkField('num', modalForm.quantity) && checkRadio() && checkCheckBox()) {
-    modalForm.submit();
+  let firstField = checkField('name', modalForm.first);
+  let lastField = checkField('name', modalForm.last);
+  let emailField = checkField('email', modalForm.email);
+  let birthdateField = checkField('date', modalForm.birthdate);
+  let quantiryField = checkField('num', modalForm.quantity);
+  let locationField = checkRadio();
+  let checkCGUField = checkCheckBox();
+
+  if (firstField && lastField && emailField && birthdateField && quantiryField && locationField && checkCGUField) {
+    closeModal();
+    launchPopUp('Merci !</br>Votre réservation a été reçue.');
+    setTimeout(function() {modalForm.submit();},5000);
   };
 });
+
+
+launchPopUp('Merci !</br>Votre réservation a été reçue.')

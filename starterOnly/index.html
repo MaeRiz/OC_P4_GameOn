@@ -52,7 +52,7 @@
         </button>
       </div>
 
-      <div class="bground">
+      <div class="bground" id="modalpage">
         <div class="content">
           <span class="close" onclick="closeModal()"></span>
           <div class="modal-body">
@@ -220,6 +220,22 @@
                 value="C'est parti"
               />
             </form>
+          </div>
+        </div>
+      </div>
+      <div class="bground" id="popup">
+        <div class="content">
+          <span class="close" onclick="closePopUp()"></span>
+          <div class="modal-body">
+            <p id="popup-text"></p>
+            <input
+            class="btn-submit"
+            type="submit"
+            class="button"
+            value="Fermer"
+            onclick="closePopUp()"
+          />
+          
           </div>
         </div>
       </div>
