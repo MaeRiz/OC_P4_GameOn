@@ -176,6 +176,3 @@ modalForm.addEventListener('submit', function(event){
     setTimeout(function() {modalForm.submit();},5000);
   };
 });
-
-
-launchPopUp('Merci !</br>Votre réservation a été reçue.')
